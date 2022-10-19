@@ -1,5 +1,3 @@
-using CwkBooking.Api.Services;
-using CwkBooking.Api.Services.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,11 +33,6 @@ namespace CwkBooking.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CwkBooking.Api", Version = "v1" });
             });
             services.AddSingleton<DataSource>();
-            services.AddSingleton<MyFirstService>();
-
-            services.AddSingleton<ISingletonOperation, SingletonOperation>();
-            services.AddTransient<ITransientOperation, TransientOperation>();
-            services.AddScoped<IScopedOperation, ScopedOperation>();
 
         }
 

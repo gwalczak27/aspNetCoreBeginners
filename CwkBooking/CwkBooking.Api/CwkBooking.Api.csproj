@@ -13,4 +13,8 @@
     <ProjectReference Include="..\CwkBooking.Domain\CwkBooking.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Abstractions\" />
+  </ItemGroup>
+
 </Project>
