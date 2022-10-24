@@ -1,4 +1,5 @@
 ﻿using CwkBooking.Domain.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,20 +15,22 @@ namespace CwkBooking.Api.Controllers
     [Route("api/[controller]")]
     public class HotelsController : Controller
     {
-        private readonly DataSource _dataSource;
         private readonly ILogger<HotelsController> _logger;
-        
-        public HotelsController(ILogger<HotelsController> logger)
+        private readonly HttpContext _http;
+
+        public HotelsController(ILogger<HotelsController> logger,
+            IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
-
+            _http = httpContextAccessor.HttpContext;
         }
 
         // will execute on Get
         [HttpGet]
         public IActionResult GetAllHotels()
         {
-            return Ok();
+            HttpContext.Request.Headers.TryGetValue("my-middleware-header", out var headerDate);
+            return Ok(headerDate);
         }
 
         [Route("{id}")]
