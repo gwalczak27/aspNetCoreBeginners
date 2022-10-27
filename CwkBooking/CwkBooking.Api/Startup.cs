@@ -1,5 +1,4 @@
 
-using CwkBooking.Api.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CwkBooking.Dal;
+using Microsoft.EntityFrameworkCore;
 
 namespace CwkBooking.Api
 {
@@ -36,6 +37,8 @@ namespace CwkBooking.Api
             });
             services.AddSingleton<DataSource>();
             services.AddHttpContextAccessor();
+            var cs = Configuration.GetConnectionString("Default");
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(cs));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +57,7 @@ namespace CwkBooking.Api
 
             app.UseAuthorization();
 
-            app.UseDateTimeHeader();
+            //app.UseDateTimeHeader();
 
             app.UseEndpoints(endpoints =>
             {
